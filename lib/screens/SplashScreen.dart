@@ -12,14 +12,14 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       Duration(seconds: 3),
-      () => Navigator.pushNamed(context, '/login'),
+      () => Navigator.pushNamed(context, '/home'),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new Stack(
+        body: new Stack(
       children: <Widget>[
         new Container(
           decoration: new BoxDecoration(

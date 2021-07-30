@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nexuswellness/assets/constants.dart';
+import 'package:nexuswellness/screens/LoginPage.dart';
+import 'package:nexuswellness/screens/PlansScreen.dart';
 import 'package:nexuswellness/screens/SplashScreen.dart';
-import 'package:nexuswellness/screens/login.dart';
+import 'package:nexuswellness/screens/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,7 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Named Routes Demo',
+      title: 'Nexus Wellness',
+      theme: ThemeData(
+        primaryColor: Color(kPrimaryColor),
+        accentColor: Color(kPrimaryColor),
+        primarySwatch: Colors.deepPurple,
+      ),
       debugShowCheckedModeBanner: false,
       // Start the app with the "/" named route. In this case, the app starts
       // on the FirstScreen widget.
@@ -17,7 +25,9 @@ class MyApp extends StatelessWidget {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => SplashScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/login': (context) => const LoginScreen(),
+        '/home': (context) => const LoginScreen(),
+        '/login': (context) => LoginPage(),
+        '/plans': (context) => PlansScreen(),
       },
     );
   }
