@@ -21,3 +21,14 @@ Widget appLogo() {
     ),
   );
 }
+
+Widget planBgScreen(path) {
+  return Container(
+    decoration: new BoxDecoration(
+      image: new DecorationImage(
+        image: new AssetImage("images/" + path),
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+}

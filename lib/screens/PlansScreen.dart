@@ -2,6 +2,7 @@ import 'package:expandable/expandable.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
 import 'package:flutter/material.dart';
+import 'package:nexuswellness/widgets/planswidgets.dart';
 
 class PlansScreen extends StatefulWidget {
   PlansScreen({Key? key}) : super(key: key);
@@ -29,29 +30,47 @@ class _PlansScreenState extends State<PlansScreen> {
             child: Text("Choose Best Plans For You", style: ksubTitleStyle),
           ),
           Divider(),
+          // Free Member Widget
+          freeMemberTile(context),
+          customizePlaneTile(),
+          premiumPlanTile(),
+          Divider(),
           Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              color: Color(kPrimaryColor),
-              height: 60,
-              child: ExpandablePanel(
-                header: Text(
-                  "Hello",
+            padding: const EdgeInsets.all(20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: IconButton(
+                    color: Colors.white,
+                    iconSize: 60,
+                    icon: Image.asset('images/icons/medical.png'),
+                    tooltip: 'Increase volume by 10',
+                    onPressed: () {},
+                  ),
                 ),
-                theme: ExpandableThemeData(
-                  iconColor: Colors.white,
+                Container(
+                  color: Colors.white,
+                  child: IconButton(
+                    color: Colors.white,
+                    iconSize: 60,
+                    icon: Image.asset('images/icons/books.png'),
+                    tooltip: 'Increase volume by 10',
+                    onPressed: () {},
+                  ),
                 ),
-                collapsed: Text(
-                  "This is Open",
-                  softWrap: true,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                Container(
+                  color: Colors.white,
+                  child: IconButton(
+                    color: Colors.white,
+                    iconSize: 60,
+                    icon: Image.asset('images/icons/drtool.png'),
+                    tooltip: 'Increase volume by 10',
+                    onPressed: () {},
+                  ),
                 ),
-                expanded: Text(
-                  "This is dec Close",
-                  softWrap: true,
-                ),
-              ),
+              ],
             ),
           ),
         ],
