@@ -84,6 +84,18 @@ class _FreePlanState extends State<FreePlan> {
                     ],
                   ),
                 ),
+                Divider(),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(kPrimaryColor), // background
+                    onPrimary: Colors.white, // foreground
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/free/member');
+                  },
+                  child: Text('Claim Free Plan'),
+                ),
+                Divider(),
               ],
             ),
           ),
