@@ -53,7 +53,7 @@ Widget freeMemberTile(context) {
   );
 }
 
-Widget customizePlaneTile() {
+Widget customizePlaneTile(context) {
   return Padding(
     padding: const EdgeInsets.all(15.0),
     child: Container(
@@ -75,9 +75,27 @@ Widget customizePlaneTile() {
                   bottomLeft: Radius.circular(5),
                 )),
             child: ListTile(
-              title: Text(
-                "Customize Plan Description",
-                style: TextStyle(fontWeight: FontWeight.w700),
+              title: Column(
+                children: [
+                  Text(
+                    "Customize Plan Description",
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  Divider(),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(kgreenColor), // background
+                      onPrimary: Colors.white, // foreground
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/customize/plan');
+                    },
+                    child: Text('View All'),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                ],
               ),
             ),
           )
@@ -87,7 +105,7 @@ Widget customizePlaneTile() {
   );
 }
 
-Widget premiumPlanTile() {
+Widget premiumPlanTile(context) {
   return Padding(
     padding: const EdgeInsets.all(15.0),
     child: Container(
@@ -109,9 +127,27 @@ Widget premiumPlanTile() {
                   bottomLeft: Radius.circular(5),
                 )),
             child: ListTile(
-              title: Text(
-                "Premium Plan Description",
-                style: TextStyle(fontWeight: FontWeight.w700),
+              title: Column(
+                children: [
+                  Text(
+                    "Premium Plan Description",
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  Divider(),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(kblueColor), // background
+                      onPrimary: Colors.white, // foreground
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/premium/plan');
+                    },
+                    child: Text('View All'),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                ],
               ),
             ),
           )

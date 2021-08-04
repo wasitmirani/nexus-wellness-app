@@ -3,8 +3,11 @@ import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/screens/LoginPage.dart';
 import 'package:nexuswellness/screens/PlansScreen.dart';
 import 'package:nexuswellness/screens/SplashScreen.dart';
+import 'package:nexuswellness/screens/customizePlan.dart';
 import 'package:nexuswellness/screens/freeMember.dart';
 import 'package:nexuswellness/screens/home.dart';
+import 'package:nexuswellness/screens/premiumPlan.dart';
+import 'package:nexuswellness/widgets/planswidgets.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,6 +33,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/plans': (context) => PlansScreen(),
         '/free/member': (context) => FreePlan(),
+        '/customize/plan': (context) => CustomizePlan(),
+        '/premium/plan': (context) => PremiumPlan(),
       },
     );
   }

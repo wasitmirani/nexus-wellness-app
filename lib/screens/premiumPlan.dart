@@ -3,23 +3,23 @@ import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/screens/PlansScreen.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
 
-class FreePlan extends StatefulWidget {
-  FreePlan({Key? key}) : super(key: key);
+class PremiumPlan extends StatefulWidget {
+  PremiumPlan({Key? key}) : super(key: key);
 
   @override
-  _FreePlanState createState() => _FreePlanState();
+  _PremiumPlanState createState() => _PremiumPlanState();
 }
 
-class _FreePlanState extends State<FreePlan> {
+class _PremiumPlanState extends State<PremiumPlan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(kPrimaryColor),
+        backgroundColor: Color(kblueColor),
         elevation: 0,
       ),
       body: new Stack(children: <Widget>[
-        planBgScreen("freeplanbg.png"),
+        planBgScreen("PremiumPlanbg.png"),
         Padding(
           padding:
               EdgeInsets.only(top: MediaQuery.of(context).size.height / 2.5),
@@ -37,7 +37,7 @@ class _FreePlanState extends State<FreePlan> {
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  child: Text("Free Plan For You", style: kTitleStyle),
+                  child: Text("Premium Plan  For You", style: kTitleStyle),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
@@ -89,7 +89,7 @@ class _FreePlanState extends State<FreePlan> {
                   padding: const EdgeInsets.all(20.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Color(kPrimaryColor), // background
+                      primary: Color(kblueColor), // background
                       onPrimary: Colors.white, // foreground
                     ),
                     onPressed: () {
