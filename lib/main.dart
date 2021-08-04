@@ -4,6 +4,7 @@ import 'package:nexuswellness/screens/LoginPage.dart';
 import 'package:nexuswellness/screens/PlansScreen.dart';
 import 'package:nexuswellness/screens/SplashScreen.dart';
 import 'package:nexuswellness/screens/customizePlan.dart';
+import 'package:nexuswellness/screens/feeds.dart';
 import 'package:nexuswellness/screens/freeMember.dart';
 import 'package:nexuswellness/screens/home.dart';
 import 'package:nexuswellness/screens/premiumPlan.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/free/member': (context) => FreePlan(),
         '/customize/plan': (context) => CustomizePlan(),
         '/premium/plan': (context) => PremiumPlan(),
+        '/new/feeds': (context) => Feeds(),
       },
     );
   }
