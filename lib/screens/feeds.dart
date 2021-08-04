@@ -126,6 +126,18 @@ class _FeedsState extends State<Feeds> {
                       ),
                       title: Text('Info'),
                     ),
+                    Divider(),
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(kgreenColor), // background
+                          onPrimary: Colors.white, // foreground
+                        ),
+                        onPressed: () {},
+                        child: Text('Upgrade Plan'),
+                      ),
+                    ),
                   ]),
                 )
               ],
