@@ -12,8 +12,14 @@ final TextStyle kTitleStyle = TextStyle(
   color: Color(kPrimaryColor),
 );
 
-final TextStyle ksubTitleStyle = TextStyle(
+final TextStyle ksubTitleGreenStyle = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.bold,
   color: Color(kgreenColor),
+);
+
+final TextStyle ksubTitleBlackStyle = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.bold,
+  color: Color(kBlackColor),
 );

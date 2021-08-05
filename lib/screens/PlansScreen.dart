@@ -20,21 +20,28 @@ class _PlansScreenState extends State<PlansScreen> {
       ListView(
         children: <Widget>[
           appLogo(),
-          Divider(),
+          SizedBox(
+            height: 10,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Plans For You..", style: kTitleStyle),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: Text("Choose Best Plans For You", style: ksubTitleStyle),
+            child:
+                Text("Choose Best Plans For You", style: ksubTitleGreenStyle),
           ),
-          Divider(),
+          SizedBox(
+            height: 10,
+          ),
           // Free Member Widget
           freeMemberTile(context),
           customizePlaneTile(context),
           premiumPlanTile(context),
-          Divider(),
+          SizedBox(
+            height: 10,
+          ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(

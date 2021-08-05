@@ -84,18 +84,22 @@ class _PremiumPlanState extends State<PremiumPlan> {
                     ],
                   ),
                 ),
-                Divider(),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(kblueColor), // background
-                      onPrimary: Colors.white, // foreground
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(kblueColor), // background
+                        onPrimary: Colors.white, // foreground
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/new/feeds');
+                      },
+                      child: Text('Claim Free Plan'),
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/new/feeds');
-                    },
-                    child: Text('Claim Free Plan'),
                   ),
                 ),
                 Divider(),

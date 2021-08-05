@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20),
-              child: Text("Sign in To Continue..", style: ksubTitleStyle),
+              child: Text("Sign in To Continue..", style: ksubTitleGreenStyle),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
