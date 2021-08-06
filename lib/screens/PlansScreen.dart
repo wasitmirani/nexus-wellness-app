@@ -52,7 +52,7 @@ class _PlansScreenState extends State<PlansScreen> {
                   child: IconButton(
                     color: Colors.white,
                     iconSize: 60,
-                    icon: Image.asset('images/icons/medical.png'),
+                    icon: Image.asset('assets/images/icons/medical.png'),
                     tooltip: 'medical',
                     onPressed: () {},
                   ),
@@ -62,7 +62,7 @@ class _PlansScreenState extends State<PlansScreen> {
                   child: IconButton(
                     color: Colors.white,
                     iconSize: 60,
-                    icon: Image.asset('images/icons/books.png'),
+                    icon: Image.asset('assets/images/icons/books.png'),
                     tooltip: 'books',
                     onPressed: () {},
                   ),
@@ -72,7 +72,7 @@ class _PlansScreenState extends State<PlansScreen> {
                   child: IconButton(
                     color: Colors.white,
                     iconSize: 60,
-                    icon: Image.asset('images/icons/drtool.png'),
+                    icon: Image.asset('assets/images/icons/drtool.png'),
                     tooltip: 'tools',
                     onPressed: () {},
                   ),

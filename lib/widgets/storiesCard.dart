@@ -11,7 +11,7 @@ Widget storiesCard(title, description) {
             spacing: 15, // space between two icons
             children: <Widget>[
               Image.asset(
-                '/images/stroires.png',
+                'assets/images/stroires.png',
                 width: 60,
                 height: 60,
               ),

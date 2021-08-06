@@ -25,7 +25,7 @@ class _FeedsState extends State<Feeds> {
           // Add your onPressed code here!
         },
         child: const Icon(Icons.message_outlined),
-        backgroundColor: Colors.green,
+        backgroundColor: Color(kblueColor),
       ),
       drawer: mainDrawer(),
       body: new Stack(children: <Widget>[

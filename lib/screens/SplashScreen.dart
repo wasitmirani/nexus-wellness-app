@@ -24,13 +24,13 @@ class _SplashScreenState extends State<SplashScreen> {
         new Container(
           decoration: new BoxDecoration(
             image: new DecorationImage(
-              image: new AssetImage("images/background.png"),
+              image: new AssetImage("assets/images/background.png"),
               fit: BoxFit.cover,
             ),
           ),
         ),
         new Center(
-          child: Image.asset('/images/logo.png',
+          child: Image.asset('assets/images/logo.png',
               height: 150, width: 150, fit: BoxFit.contain),
         )
       ],
