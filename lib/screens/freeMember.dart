@@ -56,7 +56,7 @@ class _FreePlanState extends State<FreePlan> {
                         child: IconButton(
                           color: Colors.white,
                           iconSize: 60,
-                          icon: Image.asset('images/icons/article.png'),
+                          icon: Image.asset('assets/images/icons/article.png'),
                           tooltip: 'article',
                           onPressed: () {},
                         ),
@@ -66,7 +66,7 @@ class _FreePlanState extends State<FreePlan> {
                         child: IconButton(
                           color: Colors.white,
                           iconSize: 60,
-                          icon: Image.asset('images/icons/covid.png'),
+                          icon: Image.asset('assets/images/icons/covid.png'),
                           tooltip: 'covid',
                           onPressed: () {},
                         ),
@@ -76,7 +76,7 @@ class _FreePlanState extends State<FreePlan> {
                         child: IconButton(
                           color: Colors.white,
                           iconSize: 60,
-                          icon: Image.asset('images/icons/path.png'),
+                          icon: Image.asset('assets/images/icons/path.png'),
                           tooltip: 'path',
                           onPressed: () {},
                         ),

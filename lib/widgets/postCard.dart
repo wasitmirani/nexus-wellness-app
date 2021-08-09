@@ -11,7 +11,7 @@ Widget postCard(title, description) {
               spacing: 15, // space between two icons
               children: <Widget>[
                 Image.asset(
-                  'images/icons/covid.png',
+                  'assets/images/icons/covid.png',
                   width: 30,
                   height: 30,
                 ),

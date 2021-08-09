@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           Image.asset(
-                            "/images/gmail.png",
+                            "assets/images/gmail.png",
                             height: 20,
                             width: 20,
                           ), // icon
