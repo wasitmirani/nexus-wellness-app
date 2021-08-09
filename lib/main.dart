@@ -8,7 +8,6 @@ import 'package:nexuswellness/screens/feeds.dart';
 import 'package:nexuswellness/screens/freeMember.dart';
 import 'package:nexuswellness/screens/home.dart';
 import 'package:nexuswellness/screens/premiumPlan.dart';
-import 'package:nexuswellness/widgets/planswidgets.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,6 +24,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // Start the app with the "/" named route. In this case, the app starts
       // on the FirstScreen widget.
+      // ttp://customersdemo.com:2082/
+// customersdemo
+// =?ay?3ByWaAGq_HU
+// NexusWellnessSolutions@gmail.com
+// MontereyCounty211
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
