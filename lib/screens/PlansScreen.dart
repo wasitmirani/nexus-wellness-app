@@ -1,4 +1,3 @@
-import 'package:expandable/expandable.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
 import 'package:flutter/material.dart';

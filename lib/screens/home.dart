@@ -20,11 +20,12 @@ class LoginScreen extends StatelessWidget {
               height: 5,
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Center(
                 child: Text(
                   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-                  style: TextStyle(fontSize: 9),
+                  style: TextStyle(fontSize: 14),
+                  textAlign: TextAlign.justify,
                 ),
               ),
             ),
