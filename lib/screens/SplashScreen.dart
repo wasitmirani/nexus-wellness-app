@@ -30,7 +30,8 @@ getToken() async{
             // Duration(seconds: 3),
             // () => Navigator.pushNamed(context, '/new/feeds'),
             // );
-                  if(token.length>0){
+            print("thistok"+token);
+                  if(token.length>1 && token!="null" ){
               Timer(
                   Duration(seconds: 3),
                   () => Navigator.pushNamed(context, '/new/feeds'),

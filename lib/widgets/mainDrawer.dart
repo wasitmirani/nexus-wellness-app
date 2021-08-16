@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nexuswellness/assets/constants.dart';
 
-Widget mainDrawer() {
+
+Widget mainDrawer(user) {
+
   return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(35), bottomRight: Radius.circular(35)),
@@ -25,7 +27,7 @@ Widget mainDrawer() {
                       height: 5.0,
                     ),
                     Text(
-                      "Lee Wang",
+                      user.length>1 ? user['name'] : ""  ,
                       style: TextStyle(
                         fontSize: 22.0,
                         fontWeight: FontWeight.w800,
@@ -91,16 +93,16 @@ Widget mainDrawer() {
                   ),
                   title: Text('Review'),
                 ),
-                ListTile(
-                  leading: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.supervised_user_circle_outlined,
-                      color: Colors.black,
-                    ),
-                  ),
-                  title: Text('Share With Friends'),
-                ),
+                // ListTile(
+                //   leading: Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Icon(
+                //       Icons.supervised_user_circle_outlined,
+                //       color: Colors.black,
+                //     ),
+                //   ),
+                //   title: Text('Share With Friends'),
+                // ),
                 ListTile(
                   leading: Padding(
                     padding: const EdgeInsets.all(8.0),

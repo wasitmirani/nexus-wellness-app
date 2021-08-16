@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(content: Text('Please Check your Credentials'),
                                       backgroundColor: Colors.red,
-                                      duration: Duration(seconds: 60),
+                                      duration: Duration(seconds: 5),
                                       ),
                                     );
     }

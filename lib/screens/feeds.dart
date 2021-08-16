@@ -24,14 +24,14 @@ class Feeds extends StatefulWidget {
 
 class _FeedsState extends State<Feeds> {
   List articles = [];
+   List user=[];
   bool loading = false;
 
-  List user=[];
   @override
   void initState() {
     super.initState();
     this.fetchArticles();
-     getAuthUser();
+     this.getAuthUser();
   }
 
 
@@ -39,7 +39,6 @@ class _FeedsState extends State<Feeds> {
 getAuthUser() async{
  final SharedPreferences prefs = await SharedPreferences.getInstance();
  var token= prefs.getString('token').toString();
- print("tokenfeeds"+token);
 final response = await http.get(Uri.parse(auth_user),
   // Send authorization headers to the backend.
   headers: {
@@ -47,12 +46,21 @@ final response = await http.get(Uri.parse(auth_user),
   },
 );
 var res=json.decode(response.body);
-print("helloo"+res.toString());
+// user=res['user'];
+if(res.length>1){
+  print("helloo"+res['user']);
+}
+else {
+  print("res"+res);
+}
+
+// prefs.setStringList('user',user);
+
 // user=res;
 }
   fetchArticles() async {
     setState(() {
-    
+      
       loading = true;
     });
     var url = articles_api_url;
@@ -106,7 +114,7 @@ print("helloo"+res.toString());
         child: const Icon(Icons.message_outlined),
         backgroundColor: Color(kblueColor),
       ),
-      drawer: mainDrawer(),
+      drawer: mainDrawer(user),
       body: new Stack(children: <Widget>[
         appBackgroundScreen(),
         ListView(children: <Widget>[
