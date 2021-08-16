@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -7,15 +8,43 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  String token="";
   @override
-  void initState() {
+  void initState()  {
     super.initState();
-    Timer(
-      Duration(seconds: 3),
-      () => Navigator.pushNamed(context, '/home'),
-    );
+     getToken();
   }
 
+getToken() async{
+ final SharedPreferences prefs = await SharedPreferences.getInstance();
+       
+         setState(() {
+            token= prefs.getString('token').toString();
+            
+             Timer(
+            Duration(seconds: 3),
+            () => Navigator.pushNamed(context, '/home'),
+          );
+            // Timer(
+            // Duration(seconds: 3),
+            // () => Navigator.pushNamed(context, '/new/feeds'),
+            // );
+                  if(token.length>0){
+              Timer(
+                  Duration(seconds: 3),
+                  () => Navigator.pushNamed(context, '/new/feeds'),
+                  );
+                  }
+                  else {
+                    Timer(
+                  Duration(seconds: 3),
+                  () => Navigator.pushNamed(context, '/home'),
+                );
+                  }
+         });
+     
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(

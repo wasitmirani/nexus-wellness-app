@@ -1,7 +1,14 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:nexuswellness/assets/apiUrls.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -14,6 +21,50 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailcontroller = new TextEditingController();
   TextEditingController passwordcontroller = new TextEditingController();
 
+   final _formKey = GlobalKey<FormState>();
+     bool loading = false;
+
+  loginUser() async {
+       final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      loading = true;
+    });
+    var url = login_url;
+
+  final response = await http.post(Uri.parse(url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': emailcontroller.text.toString(),
+        'password': passwordcontroller.text.toString(),
+      }),
+    );
+    // print(response.body);
+    if(response.statusCode==401 ){
+      ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Please Check your Credentials'),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 60),
+                                      ),
+                                    );
+    }
+    if (response.statusCode == 200) {
+      var res = json.decode(response.body);
+      // print("res2"+res.toString());
+      if (res.length > 0) {
+        setState(() {
+          // print("res1"+res['access_token'].toString());
+         
+           prefs.setString("token", res['access_token']);
+           Navigator.pushNamed(context, '/new/feeds'); 
+          loading = false;
+        });
+      } else {         
+        loading = false;
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,11 +84,22 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(left: 20),
               child: Text("Sign in To Continue..", style: ksubTitleGreenStyle),
             ),
+           
+            Form(
+            key: _formKey,
+            child: Column(
+            children: [
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 child: TextFormField(
                   controller: emailcontroller,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter email address';
+                      }
+                      return null;
+                    },
                   decoration: InputDecoration(
                       border: UnderlineInputBorder(),
                       labelText: 'Enter a Email Address'),
@@ -47,8 +109,15 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
-                child: TextFormField(
+                child: TextFormField
+                (
                   controller: passwordcontroller,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
                   obscureText: true,
                   decoration: InputDecoration(
                       border: UnderlineInputBorder(),
@@ -60,12 +129,22 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 height: 50,
+                width: MediaQuery.of(context).size.width/1,
                 child: FlatButton(
                   shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(5.0),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/plans');
+                       if (_formKey.currentState!.validate()) {
+                                    // If the form is valid, display a snackbar. In the real world,
+                                    // you'd often call a server or save the information in a database.
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Please wait..'),duration: Duration(seconds: 5),),
+                                    );
+                                    loginUser();
+                                    // Navigator.pushNamed(context, '/plans');  
+                                  }
+                    
                   },
                   color: Color(kPrimaryColor),
                   child: Text(
@@ -111,6 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ))),
             Divider(),
+             ])),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(

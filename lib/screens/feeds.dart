@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:nexuswellness/assets/apiUrls.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/mainDrawer.dart';
@@ -9,6 +12,8 @@ import 'package:nexuswellness/widgets/storiesCard.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Feeds extends StatefulWidget {
   Feeds({Key? key}) : super(key: key);
@@ -20,14 +25,34 @@ class Feeds extends StatefulWidget {
 class _FeedsState extends State<Feeds> {
   List articles = [];
   bool loading = false;
+
+  List user=[];
   @override
   void initState() {
     super.initState();
     this.fetchArticles();
+     getAuthUser();
   }
 
+
+
+getAuthUser() async{
+ final SharedPreferences prefs = await SharedPreferences.getInstance();
+ var token= prefs.getString('token').toString();
+ print("tokenfeeds"+token);
+final response = await http.get(Uri.parse(auth_user),
+  // Send authorization headers to the backend.
+  headers: {
+    HttpHeaders.authorizationHeader: 'Bearer '+token,
+  },
+);
+var res=json.decode(response.body);
+print("helloo"+res.toString());
+// user=res;
+}
   fetchArticles() async {
     setState(() {
+    
       loading = true;
     });
     var url = articles_api_url;
