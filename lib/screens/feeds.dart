@@ -24,17 +24,31 @@ class Feeds extends StatefulWidget {
 
 class _FeedsState extends State<Feeds> {
   List articles = [];
-   List user=[];
+String name="",email="",id="",plane="",thumbnail="";
+
   bool loading = false;
 
   @override
   void initState() {
     super.initState();
     this.fetchArticles();
-     this.getAuthUser();
+  
+    getAuthUser();
+    // getUserInfo();
+      // WidgetsBinding.instance.addPostFrameCallback((_) => getAuthUser());
+   
   }
 
-
+getUserInfo() async{
+   final SharedPreferences prefs = await SharedPreferences.getInstance();
+ 
+  name=prefs.getString('name').toString();
+  id=prefs.getString('id').toString();
+  thumbnail=prefs.getString('thumbnail').toString();
+  email=prefs.getString('email').toString();
+  plane=prefs.getString('plane').toString();
+  
+}
 
 getAuthUser() async{
  final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -45,18 +59,29 @@ final response = await http.get(Uri.parse(auth_user),
     HttpHeaders.authorizationHeader: 'Bearer '+token,
   },
 );
-var res=json.decode(response.body);
-// user=res['user'];
-if(res.length>1){
-  print("helloo"+res['user']);
-}
-else {
-  print("res"+res);
-}
+   if (response.statusCode == 200) {
+      var items = json.decode(response.body);
+      print(items['user'].length);
+      if (items['user'].toString().length>0) {
+        setState(() {
+          print(items['user']['name'].toString());
+                name=items['user']['name'].toString();
+                email=items['user']['email'].toString();
+                prefs.setString('name',items['user']['name'].toString());
+                prefs.setString('id', items['user']['id'].toString());
+                prefs.setString('thumbnail', items['user']['thumbnail'].toString());
+                prefs.setString('email', items['user']['email'].toString());
+                prefs.setString('plane', items['user']['plane'].toString());
+        });
+      } else {
+        
+        // loading = false;
+      }
+    
+   }
 
-// prefs.setStringList('user',user);
 
-// user=res;
+
 }
   fetchArticles() async {
     setState(() {
@@ -103,18 +128,24 @@ else {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope( 
+    onWillPop: () async {
+        return  Future.delayed(const Duration(milliseconds: 500), () {
+       exit(0);
+      });
+    },
+    child:Scaffold(
       appBar: AppBar(
         title: Text("feeds"),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        child: const Icon(Icons.message_outlined),
-        backgroundColor: Color(kblueColor),
-      ),
-      drawer: mainDrawer(user),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     // Add your onPressed code here!
+      //   },
+      //   child: const Icon(Icons.message_outlined),
+      //   backgroundColor: Color(kblueColor),
+      // ),
+      drawer: mainDrawer(name,email,thumbnail),
       body: new Stack(children: <Widget>[
         appBackgroundScreen(),
         ListView(children: <Widget>[
@@ -146,6 +177,7 @@ else {
           ),
         ]),
       ]),
+    ),
     );
   }
 }

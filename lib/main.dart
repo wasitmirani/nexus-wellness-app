@@ -8,6 +8,7 @@ import 'package:nexuswellness/screens/feeds.dart';
 import 'package:nexuswellness/screens/freeMember.dart';
 import 'package:nexuswellness/screens/home.dart';
 import 'package:nexuswellness/screens/premiumPlan.dart';
+import 'package:nexuswellness/screens/signupPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,8 +30,9 @@ class MyApp extends StatelessWidget {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => SplashScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/home': (context) => const LoginScreen(),
+        '/home': (context) =>  LoginScreen(),
         '/login': (context) => LoginPage(),
+        '/signup': (context) => SignupPage(),
         '/plans': (context) => PlansScreen(),
         '/free/member': (context) => FreePlan(),
         '/customize/plan': (context) => CustomizePlan(),

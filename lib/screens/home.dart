@@ -1,15 +1,30 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() { 
+    super.initState();
+
+    
+  }
+
+   
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return   Scaffold(
         body: new Stack(
       children: <Widget>[
         appBackgroundScreen(),
@@ -115,7 +130,9 @@ class LoginScreen extends StatelessWidget {
                           highlightedBorderColor: Color(kPrimaryColor),
                           borderSide:
                               BorderSide(width: 2, color: Color(kPrimaryColor)),
-                          onPressed: () {},
+                          onPressed: () {
+                                Navigator.pushNamed(context, '/signup');
+                          },
                           child: Text(
                             'Sign Up',
                             style: TextStyle(color: Color(kPrimaryColor)),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nexuswellness/assets/constants.dart';
 
 
-Widget mainDrawer(user) {
+Widget mainDrawer(name,email,thumbanil) {
 
   return ClipRRect(
       borderRadius: BorderRadius.only(
@@ -27,7 +27,7 @@ Widget mainDrawer(user) {
                       height: 5.0,
                     ),
                     Text(
-                      user.length>1 ? user['name'] : ""  ,
+                      name  ,
                       style: TextStyle(
                         fontSize: 22.0,
                         fontWeight: FontWeight.w800,
@@ -37,7 +37,7 @@ Widget mainDrawer(user) {
                       height: 5.0,
                     ),
                     Text(
-                      "Software Engenieer",
+                      email,
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w400,

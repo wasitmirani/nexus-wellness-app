@@ -10,26 +10,28 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  SignupPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   TextEditingController emailcontroller = new TextEditingController();
   TextEditingController passwordcontroller = new TextEditingController();
+   TextEditingController namecontroller = new TextEditingController();
+  
 
    final _formKey = GlobalKey<FormState>();
      bool loading = false;
 
-  loginUser() async {
+  SigupUser() async {
        final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       loading = true;
     });
-    var url = login_url;
+    var url = signup_user;
 
   final response = await http.post(Uri.parse(url),
       headers: <String, String>{
@@ -38,37 +40,29 @@ class _LoginPageState extends State<LoginPage> {
       body: jsonEncode(<String, String>{
         'email': emailcontroller.text.toString(),
         'password': passwordcontroller.text.toString(),
+        'name':namecontroller.text.toString(),
       }),
     );
     // print(response.body);
-    if(response.statusCode==401 ){
- 
-      final snackBar = SnackBar(
-      content: Text('Please Check your Credentialst ➡️'),
-      duration: const Duration(milliseconds: 800),
-      action: SnackBarAction(
-        label: 'error',
-        textColor: Colors.white,
-        onPressed: () {
-          // Some code to undo the change.
-        },
-      ),
-    );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-    if (response.statusCode == 200) {
+    
+    if (response.statusCode == 201) {
       var res = json.decode(response.body);
-      // print("res2"+res.toString());
+      print("res2"+res.toString());
       if (res.length > 0) {
         setState(() {
           // print("res1"+res['access_token'].toString());
          
            prefs.setString("token", res['access_token']);
-           Navigator.pushNamed(context, '/new/feeds'); 
+           Navigator.pushNamed(context, '/plans'); 
           loading = false;
         });
       } else {         
-        loading = false;
+          ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Please try agin'),
+                                      backgroundColor: Colors.red,
+                                      duration: Duration(seconds: 5),
+                                      ),
+                                    );
       }
     }
   }
@@ -89,13 +83,30 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20),
-              child: Text("Sign in To Continue..", style: ksubTitleGreenStyle),
+              child: Text("Signup in To Continue..", style: ksubTitleGreenStyle),
             ),
            
             Form(
             key: _formKey,
             child: Column(
             children: [
+               Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                child: TextFormField(
+                  controller: namecontroller,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter Full Name';
+                      }
+                      return null;
+                    },
+                  decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Enter a Full Name'),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
@@ -143,30 +154,19 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {
                        if (_formKey.currentState!.validate()) {
-                                    final snackBar = SnackBar(
-                                      content: Text('Please wait'),
-                                      duration: const Duration(milliseconds: 400),
-                                      action: SnackBarAction(
-                                        label: 'error',
-                                        textColor: Colors.white,
-                                        onPressed: () {
-                                          // Some code to undo the change.
-                                        },
-                                      ),
+                                    // If the form is valid, display a snackbar. In the real world,
+                                    // you'd often call a server or save the information in a database.
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Proccessing Data..'),duration: Duration(milliseconds:400),),
                                     );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-         Center(
-            child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Color(kPrimaryColor)),
-          ));
-                                    loginUser();
+                                    SigupUser();
                                     // Navigator.pushNamed(context, '/plans');  
                                   }
                     
                   },
                   color: Color(kPrimaryColor),
                   child: Text(
-                    "Login",
+                    "Signup",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 22.0,
@@ -175,66 +175,28 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            Divider(),
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                    color: Colors.transparent,
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    height: 60,
-                    child: OutlineButton(
-                      highlightedBorderColor: Color(kPrimaryColor),
-                      borderSide:
-                          BorderSide(width: 2, color: Color(kPrimaryColor)),
-                      onPressed: () {
-                        
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Continue With",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Image.asset(
-                            "assets/images/gmail.png",
-                            height: 20,
-                            width: 20,
-                          ), // icon
-                          // text
-                        ],
-                      ),
-                    ))),
+         
+          
             Divider(),
              ])),
             Padding(
               padding: const EdgeInsets.all(8.0),
-                  child:  GestureDetector(
-                    child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Not a Member ",
-                                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
-                                    ),
-                                    Text(
-                                      "SignUp",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w800,
-                                          color: Color(kgreenColor)),
-                                    ),
-                                  ],
-                                ),
-                    onTap: () {
-                     Navigator.pushNamed(context, '/signup');
-                    }
-                  )
-         
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already a Member ",
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800),
+                  ),
+                  Text(
+                    "Login",
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w800,
+                        color: Color(kgreenColor)),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
