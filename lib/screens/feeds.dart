@@ -97,7 +97,7 @@ final response = await http.get(Uri.parse(auth_user),
       if (items.length > 0) {
         setState(() {
           articles = items['articles'];
-
+          print(articles);
           loading = false;
         });
       } else {
@@ -114,16 +114,25 @@ final response = await http.get(Uri.parse(auth_user),
         valueColor: new AlwaysStoppedAnimation<Color>(Color(kPrimaryColor)),
       ));
     }
-    return ConstrainedBox(
-      constraints:
-          BoxConstraints(maxHeight: 1000), // **THIS is the important part**
-      child: ListView.builder(
+    return SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child: Column(
+          children: <Widget>[// **THIS is the important part**
+       ListView.builder(
+         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, index) => storiesCard(
-            articles[index]['title'], articles[index]['description']),
+            articles[index]['title'], articles[index]['description'],articles[index]['thumbnail']),
         itemCount: articles.length,
       ),
+          ]
+        ),
     );
+  }
+  Future<Null> _refreshArticles() async{
+    setState(() {
+      fetchArticles();
+    });
   }
 
   @override
@@ -145,10 +154,12 @@ final response = await http.get(Uri.parse(auth_user),
       //   child: const Icon(Icons.message_outlined),
       //   backgroundColor: Color(kblueColor),
       // ),
-      drawer: mainDrawer(name,email,thumbnail),
+      drawer: mainDrawer(name,email,thumbnail,context),
       body: new Stack(children: <Widget>[
         appBackgroundScreen(),
-        ListView(children: <Widget>[
+        RefreshIndicator(
+          onRefresh: _refreshArticles,
+         child:ListView(children: <Widget>[
           SizedBox(
             height: 10,
           ),
@@ -172,10 +183,12 @@ final response = await http.get(Uri.parse(auth_user),
             height: 10,
           ),
           getArticles(),
+          Divider(),
           SizedBox(
-            height: 10,
+            height: 30,
           ),
         ]),
+        ),
       ]),
     ),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nexuswellness/assets/constants.dart';
 
 
-Widget mainDrawer(name,email,thumbanil) {
+Widget mainDrawer(name,email,thumbanil,context) {
 
   return ClipRRect(
       borderRadius: BorderRadius.only(
@@ -121,7 +121,9 @@ Widget mainDrawer(name,email,thumbanil) {
                       primary: Color(kgreenColor), // background
                       onPrimary: Colors.white, // foreground
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/plans');
+                    },
                     child: Text('Upgrade Plan'),
                   ),
                 ),

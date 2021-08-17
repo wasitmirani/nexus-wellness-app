@@ -46,8 +46,11 @@ class _LoginPageState extends State<LoginPage> {
       final snackBar = SnackBar(
       content: Text('Please Check your Credentialst ➡️'),
       duration: const Duration(milliseconds: 800),
+      backgroundColor: Colors.redAccent,
+  
       action: SnackBarAction(
         label: 'error',
+
         textColor: Colors.white,
         onPressed: () {
           // Some code to undo the change.
@@ -145,9 +148,10 @@ class _LoginPageState extends State<LoginPage> {
                        if (_formKey.currentState!.validate()) {
                                     final snackBar = SnackBar(
                                       content: Text('Please wait'),
-                                      duration: const Duration(milliseconds: 400),
+                                      backgroundColor: Colors.green,
+                                      duration: const Duration(milliseconds: 800),
                                       action: SnackBarAction(
-                                        label: 'error',
+                                        label: 'success',
                                         textColor: Colors.white,
                                         onPressed: () {
                                           // Some code to undo the change.

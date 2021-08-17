@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nexuswellness/assets/constants.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 Widget freeMemberTile(context) {
   return Padding(
@@ -24,21 +25,46 @@ Widget freeMemberTile(context) {
                 )),
             child: ListTile(
               title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        "Free Membership Plan Description",
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                 SizedBox(height: 10,),
+                  
                   Text(
-                    "Free Membership Plan Description",
+                    "Lorem Ipsum is simply dummy text of the.",
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ),
-                  Divider(),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(kPrimaryColor), // background
-                      onPrimary: Colors.white, // foreground
+                  Text(
+                    "Lorem Ipsum is simply dummy text of the.",
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    "Lorem Ipsum is simply dummy text of the.",
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    width: MediaQuery.of(context).size.width/1,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(kPrimaryColor), // background
+                        onPrimary: Colors.white, 
+                      // foreground
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/free/member');
+                      },
+                      child: Text('View All'),
                     ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/free/member');
-                    },
-                    child: Text('View All'),
                   ),
                   SizedBox(
                     height: 5,
@@ -76,22 +102,48 @@ Widget customizePlaneTile(context) {
                 )),
             child: ListTile(
               title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        "Customize Plan Description",
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                   SizedBox(height: 10,),
+                  
                   Text(
-                    "Customize Plan Description",
+                    "Lorem Ipsum is simply dummy text of the.",
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ),
-                  Divider(),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(kgreenColor), // background
-                      onPrimary: Colors.white, // foreground
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/customize/plan');
-                    },
-                    child: Text('View All'),
+                  Text(
+                    "Lorem Ipsum is simply dummy text of the.",
+                    style: TextStyle(fontWeight: FontWeight.w700),
                   ),
+                  Text(
+                    "Lorem Ipsum is simply dummy text of the.",
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    width: MediaQuery.of(context).size.width/1,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(kgreenColor), // background
+                        onPrimary: Colors.white, 
+                      // foreground
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/customize/plan');
+                      },
+                      child: Text('View All'),
+                    ),
+                  ),
+                 
                   SizedBox(
                     height: 5,
                   ),
@@ -128,22 +180,49 @@ Widget premiumPlanTile(context) {
                 )),
             child: ListTile(
               title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(
+                      child: Text(
+                        "Premium Plan Description",
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  
                   Text(
-                    "Premium Plan Description",
+                    "Lorem Ipsum is simply dummy text of the.",
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ),
-                  Divider(),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(kblueColor), // background
-                      onPrimary: Colors.white, // foreground
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/premium/plan');
-                    },
-                    child: Text('View All'),
+                  Text(
+                    "Lorem Ipsum is simply dummy text of the.",
+                    style: TextStyle(fontWeight: FontWeight.w700),
                   ),
+                  Text(
+                    "Lorem Ipsum is simply dummy text of the.",
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  SizedBox(height: 20,),
+                  Container(
+                    width: MediaQuery.of(context).size.width/1,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(kblueColor), // background
+                        onPrimary: Colors.white, 
+                      // foreground
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/premium/plan');
+                      },
+                      child: Text('View All'),
+                    ),
+                  ),
+                 
+                 
                   SizedBox(
                     height: 5,
                   ),

@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:nexuswellness/assets/apiUrls.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/screens/PlansScreen.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class FreePlan extends StatefulWidget {
   FreePlan({Key? key}) : super(key: key);
@@ -11,6 +16,27 @@ class FreePlan extends StatefulWidget {
 }
 
 class _FreePlanState extends State<FreePlan> {
+  bool loading=false;
+  updateUserPlane(id) async{
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+ var token= prefs.getString('token').toString();
+    setState(() {
+      loading = true;
+    });
+    var url = update_plane_user;
+  final response = await http.post(Uri.parse(url),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer '+token,
+      },
+      body: {
+        'plane_id':id.toString(),
+      },
+    );
+    // print(response.statusCod);
+    if(response.statusCode==201 ){
+        Navigator.pushNamed(context, '/new/feeds');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,15 +116,20 @@ class _FreePlanState extends State<FreePlan> {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(50.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(kPrimaryColor), // background
-                        onPrimary: Colors.white, // foreground
+                    child: Container(
+                      width: MediaQuery.of(context).size.width/1,
+                      height: 40,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(kPrimaryColor), // background
+                          onPrimary: Colors.white, // foreground
+                        ),
+                        onPressed: () {
+                          updateUserPlane('1');
+                    
+                        },
+                        child: Text('Claim Free Plan'),
                       ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/new/feeds');
-                      },
-                      child: Text('Claim Free Plan'),
                     ),
                   ),
                 ),

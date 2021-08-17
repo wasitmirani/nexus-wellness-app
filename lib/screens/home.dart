@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 5,
             ),
             Center(
-              child: Text("OR"),
+              child: Text("OR",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18),),
             ),
             SizedBox(
               height: 5,
