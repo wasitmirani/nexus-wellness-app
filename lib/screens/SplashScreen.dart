@@ -21,15 +21,6 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {
       token = prefs.getString('token').toString();
 
-      Timer(
-        Duration(seconds: 9),
-        () => Navigator.pushNamed(context, '/home'),
-      );
-      // Timer(
-      // Duration(seconds: 3),
-      // () => Navigator.pushNamed(context, '/new/feeds'),
-      // );
-      print("thistok" + token);
       if (token.length > 1 && token != "null") {
         Timer(
           Duration(seconds: 9),
@@ -51,6 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
       children: <Widget>[
         new Container(
             height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             child: Image.asset('/images/logo.gif', fit: BoxFit.cover)),
       ],
     ));
