@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     if(response.statusCode==401 ){
  
       final snackBar = SnackBar(
-      content: Text('Please Check your Credentialst ➡️'),
+      content: Text('Please Check your credentials'),
       duration: const Duration(milliseconds: 800),
       backgroundColor: Colors.redAccent,
   
