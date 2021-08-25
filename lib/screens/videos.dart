@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/eventCard.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
+import 'package:nexuswellness/widgets/videoCard.dart';
 
 class Videos extends StatefulWidget {
   Videos({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class _VideosState extends State<Videos> {
             SizedBox(
               height: 10,
             ),
+            videoCard(context),
           ])
         ],
       ),
