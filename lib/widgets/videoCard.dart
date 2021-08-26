@@ -16,14 +16,14 @@ Widget videoCard(context) {
             children: [
               Text(
                 "There are many variations of passages There are many variations of passages",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
                 "There are many variations of passages There are many variations of passages",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
               ),
             ],
           ),
