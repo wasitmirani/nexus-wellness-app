@@ -27,12 +27,9 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       // Start the app with the "/" named route. In this case, the app starts
-
       initialRoute: '/',
       routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => SplashScreen(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
         '/home': (context) => LoginScreen(),
         '/login': (context) => LoginPage(),
         '/events': (context) => Events(),
