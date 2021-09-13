@@ -15,16 +15,13 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-
-    
   }
 
-   
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
         body: new Stack(
       children: <Widget>[
         appBackgroundScreen(),
@@ -113,7 +110,10 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 5,
             ),
             Center(
-              child: Text("OR",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18),),
+              child: Text(
+                "OR",
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+              ),
             ),
             SizedBox(
               height: 5,
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderSide:
                               BorderSide(width: 2, color: Color(kPrimaryColor)),
                           onPressed: () {
-                                Navigator.pushNamed(context, '/signup');
+                            Navigator.pushNamed(context, '/signup');
                           },
                           child: Text(
                             'Sign Up',

@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_authorize_net_client/flutter_authorize_net_client.dart';
 import 'package:nexuswellness/assets/apiUrls.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/screens/PlansScreen.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class FreePlan extends StatefulWidget {
   FreePlan({Key? key}) : super(key: key);
@@ -16,27 +18,42 @@ class FreePlan extends StatefulWidget {
 }
 
 class _FreePlanState extends State<FreePlan> {
-  bool loading=false;
-  updateUserPlane(id) async{
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
- var token= prefs.getString('token').toString();
+  bool loading = false;
+  updateUserPlane(id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token').toString();
     setState(() {
       loading = true;
     });
     var url = update_plane_user;
-  final response = await http.post(Uri.parse(url),
+    final response = await http.post(
+      Uri.parse(url),
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer '+token,
+        HttpHeaders.authorizationHeader: 'Bearer ' + token,
       },
       body: {
-        'plane_id':id.toString(),
+        'plane_id': id.toString(),
       },
     );
     // print(response.statusCod);
-    if(response.statusCode==201 ){
-        Navigator.pushNamed(context, '/new/feeds');
+    if (response.statusCode == 201) {
+      Navigator.pushNamed(context, '/new/feeds');
     }
   }
+
+  late AuthorizeNetClient _client;
+  late String _refID;
+
+  @override
+  void initState() {
+    super.initState();
+    _client = AuthorizeNetClient(
+      '49HYnF9ap3',
+      '34X64r498YN9Hwtr',
+      environment: AuthorizeNetClient.ENV_TEST,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,16 +134,26 @@ class _FreePlanState extends State<FreePlan> {
                   child: Padding(
                     padding: const EdgeInsets.all(50.0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width/1,
+                      width: MediaQuery.of(context).size.width / 1,
                       height: 40,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Color(kPrimaryColor), // background
                           onPrimary: Colors.white, // foreground
                         ),
-                        onPressed: () {
-                          updateUserPlane('1');
-                    
+                        onPressed: () async {
+                          print("hello");
+                          // updateUserPlane('1');
+                          final response = await _client.chargeCreditCard(
+                            '10',
+                            'USD'.toLowerCase(),
+                            '5424000000000015',
+                            '2022-12',
+                            '123',
+                          );
+                          print('response: \n${response.toJson()}');
+                          print('isSuccessFul: ${response.isSuccessful}');
+                          print(jsonEncode(response.toJson()));
                         },
                         child: Text('Claim Free Plan'),
                       ),
