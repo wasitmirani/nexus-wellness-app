@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/flutter_credit_card.dart';
+
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
 
@@ -19,6 +21,21 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
   TextEditingController dateTextController = new TextEditingController();
   TextEditingController cvvTextController = new TextEditingController();
   TextEditingController cardHolderTextController = new TextEditingController();
+  String cardNumber = '';
+  String expiryDate = '';
+  String cardHolderName = '';
+  String cvvCode = '';
+  bool isCvvFocused = false;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  void onCreditCardModelChange(CreditCardModel? creditCardModel) {
+    setState(() {
+      cardNumber = creditCardModel!.cardNumber;
+      expiryDate = creditCardModel.expiryDate;
+      cardHolderName = creditCardModel.cardHolderName;
+      cvvCode = creditCardModel.cvvCode;
+      isCvvFocused = creditCardModel.isCvvFocused;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +89,6 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                   ),
                 ),
                 style: ButtonStyle(
-            
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
@@ -99,75 +115,63 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                 SizedBox(
                   height: 5,
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(20, 20, 10, 10),
-                  child: Text("Card  Number", style: ksubTitleBlackStyle),
-                ),
-                TextField(
-                  controller: cardTextController,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        color: Color(0xFFECECEC),
-                        child: IconButton(
-                          color: Colors.white,
-                          iconSize: 60,
-                          icon: Image.asset('assets/images/icons/article.png'),
-                          tooltip: 'article',
-                          onPressed: () {},
-                        ),
-                      ),
-                      Container(
-                        color: Color(0xFFECECEC),
-                        child: IconButton(
-                          color: Colors.white,
-                          iconSize: 60,
-                          icon: Image.asset('assets/images/icons/covid.png'),
-                          tooltip: 'covid',
-                          onPressed: () {},
-                        ),
-                      ),
-                      Container(
-                        color: Color(0xFFECECEC),
-                        child: IconButton(
-                          color: Colors.white,
-                          iconSize: 60,
-                          icon: Image.asset('assets/images/icons/path.png'),
-                          tooltip: 'path',
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
+                CreditCardForm(
+                  formKey: formKey,
+                  obscureCvv: true,
+                  obscureNumber: true,
+                  cardNumber: cardNumber,
+                  cvvCode: cvvCode,
+                  cardHolderName: cardHolderName,
+                  expiryDate: expiryDate,
+                  themeColor: Colors.blue,
+                  cardNumberDecoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Number',
+                    hintText: 'XXXX XXXX XXXX XXXX',
                   ),
+                  expiryDateDecoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Expired Date',
+                    hintText: 'XX/XX',
+                  ),
+                  cvvCodeDecoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'CVV',
+                    hintText: 'XXX',
+                  ),
+                  cardHolderDecoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Card Holder',
+                  ),
+                  onCreditCardModelChange: onCreditCardModelChange,
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(50.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 1,
-                      height: 40,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(kPrimaryColor), // background
-                          onPrimary: Colors.white, // foreground
-                        ),
-                        onPressed: () async {
-                          print("hello");
-                          // updateUserPlane('1');
-                        },
-                        child: Text('Claim Free Plan'),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    primary: const Color(kblueColor),
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.all(8),
+                    child: const Text(
+                      'Proceed To Pay',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'halter',
+                        fontSize: 16,
+                        package: 'flutter_credit_card',
                       ),
                     ),
                   ),
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      print('valid!');
+                    } else {
+                      print('invalid!');
+                    }
+                  },
                 ),
-                Divider(),
               ],
             ),
           ),
