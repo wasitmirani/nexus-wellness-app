@@ -139,50 +139,54 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                     ),
                     onCreditCardModelChange: onCreditCardModelChange,
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+                  Container(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        primary: const Color(kblueColor),
                       ),
-                      primary: const Color(kblueColor),
-                    ),
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      child: const Text(
-                        'Proceed To Pay',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'halter',
-                          fontSize: 14,
-                          package: 'flutter_credit_card',
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        child: const Text(
+                          'Proceed To Pay ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'halter',
+                            fontSize: 14,
+                            package: 'flutter_credit_card',
+                          ),
                         ),
                       ),
-                    ),
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        print('valid!');
-                        final response = await _client.chargeCreditCard(
-                          price,
-                          'USD'.toLowerCase(),
-                          cardNumber.replaceAll(' ', ''),
-                          expiryDate,
-                          cvvCode,
-                        );
-                        if (response.isSuccessful) {
-                          final snackBar = SnackBar(
-                            content:
-                                Text('Your transaction successful is done'),
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          print('valid!');
+                          final response = await _client.chargeCreditCard(
+                            price,
+                            'USD'.toLowerCase(),
+                            cardNumber.replaceAll(' ', ''),
+                            expiryDate,
+                            cvvCode,
                           );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          if (response.isSuccessful) {
+                            final snackBar = SnackBar(
+                              content:
+                                  Text('Your transaction successful is done'),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                          print(cardNumber.replaceAll(' ', ''));
+                          print('response: \n${response.toJson()}');
+                          print('isSuccessFul: ${response.isSuccessful}');
+                          print(jsonEncode(response.toJson()));
+                        } else {
+                          print('invalid!');
                         }
-                        print(cardNumber.replaceAll(' ', ''));
-                        print('response: \n${response.toJson()}');
-                        print('isSuccessFul: ${response.isSuccessful}');
-                        print(jsonEncode(response.toJson()));
-                      } else {
-                        print('invalid!');
-                      }
-                    },
+                      },
+                    ),
                   )
                 ],
               ),
