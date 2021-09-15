@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_authorize_net_client/flutter_authorize_net_client.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 import 'package:nexuswellness/assets/constants.dart';
@@ -21,20 +22,23 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
   TextEditingController dateTextController = new TextEditingController();
   TextEditingController cvvTextController = new TextEditingController();
   TextEditingController cardHolderTextController = new TextEditingController();
+  final formKey = GlobalKey<FormState>();
   String cardNumber = '';
   String expiryDate = '';
   String cardHolderName = '';
   String cvvCode = '';
   bool isCvvFocused = false;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  void onCreditCardModelChange(CreditCardModel? creditCardModel) {
-    setState(() {
-      cardNumber = creditCardModel!.cardNumber;
-      expiryDate = creditCardModel.expiryDate;
-      cardHolderName = creditCardModel.cardHolderName;
-      cvvCode = creditCardModel.cvvCode;
-      isCvvFocused = creditCardModel.isCvvFocused;
-    });
+  late AuthorizeNetClient _client;
+  late String _refID;
+
+  @override
+  void initState() {
+    super.initState();
+    _client = AuthorizeNetClient(
+      '49HYnF9ap3',
+      '34X64r498YN9Hwtr',
+      environment: AuthorizeNetClient.ENV_TEST,
+    );
   }
 
   @override
@@ -65,44 +69,29 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                       color: Colors.white,
                       fontWeight: FontWeight.w800)),
             ),
+
+            // Text("Payment Method",
+            //     style: TextStyle(
+            //         fontSize: 14,
+            //         color: Colors.white,
+            //         fontWeight: FontWeight.w400)),
             SizedBox(height: 10),
-            Text("Payment Method",
-                style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400)),
-            SizedBox(height: 10),
-            ElevatedButton(
-                onPressed: () {},
-                child: Container(
-                  width: 100,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("Credit", style: TextStyle(fontSize: 14)),
-                      ),
-                      Icon(Icons.check_circle)
-                    ],
-                  ),
-                ),
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40),
-                              bottomLeft: Radius.circular(40),
-                              bottomRight: Radius.circular(40),
-                            ),
-                            side: BorderSide(color: Color(kblueColor))))))
+            CreditCardWidget(
+              cardBgColor: Colors.black,
+              cardNumber: cardNumber,
+              expiryDate: expiryDate,
+              cardHolderName: cardHolderName,
+              cvvCode: cvvCode,
+              showBackView: isCvvFocused,
+              obscureCardNumber: true,
+              obscureCardCvv: true,
+            ),
+            SizedBox(height: 20),
           ],
         ),
         Padding(
           padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height / 2.5),
+              EdgeInsets.only(top: MediaQuery.of(context).size.height / 2.2),
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -110,73 +99,107 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
                 )),
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 5,
-                ),
-                CreditCardForm(
-                  formKey: formKey,
-                  obscureCvv: true,
-                  obscureNumber: true,
-                  cardNumber: cardNumber,
-                  cvvCode: cvvCode,
-                  cardHolderName: cardHolderName,
-                  expiryDate: expiryDate,
-                  themeColor: Colors.blue,
-                  cardNumberDecoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Number',
-                    hintText: 'XXXX XXXX XXXX XXXX',
+            child: Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: 5,
                   ),
-                  expiryDateDecoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Expired Date',
-                    hintText: 'XX/XX',
+                  SizedBox(
+                    height: 5,
                   ),
-                  cvvCodeDecoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'CVV',
-                    hintText: 'XXX',
-                  ),
-                  cardHolderDecoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Card Holder',
-                  ),
-                  onCreditCardModelChange: onCreditCardModelChange,
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                  CreditCardForm(
+                    formKey: formKey,
+                    obscureCvv: true,
+                    obscureNumber: true,
+                    cardNumber: cardNumber,
+                    cvvCode: cvvCode,
+                    cardHolderName: cardHolderName,
+                    expiryDate: expiryDate,
+                    themeColor: Colors.blue,
+                    cardNumberDecoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Number',
+                      hintText: 'XXXX XXXX XXXX XXXX',
                     ),
-                    primary: const Color(kblueColor),
+                    expiryDateDecoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Expired Date',
+                      hintText: 'MM/YY',
+                    ),
+                    cvvCodeDecoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'CVV',
+                      hintText: 'XXX',
+                    ),
+                    cardHolderDecoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Card Holder',
+                    ),
+                    onCreditCardModelChange: onCreditCardModelChange,
                   ),
-                  child: Container(
-                    margin: const EdgeInsets.all(8),
-                    child: const Text(
-                      'Proceed To Pay',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'halter',
-                        fontSize: 16,
-                        package: 'flutter_credit_card',
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      primary: const Color(kblueColor),
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.all(8),
+                      child: const Text(
+                        'Proceed To Pay',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'halter',
+                          fontSize: 14,
+                          package: 'flutter_credit_card',
+                        ),
                       ),
                     ),
-                  ),
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      print('valid!');
-                    } else {
-                      print('invalid!');
-                    }
-                  },
-                ),
-              ],
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        print('valid!');
+                        final response = await _client.chargeCreditCard(
+                          price,
+                          'USD'.toLowerCase(),
+                          cardNumber.replaceAll(' ', ''),
+                          expiryDate,
+                          cvvCode,
+                        );
+                        if (response.isSuccessful) {
+                          final snackBar = SnackBar(
+                            content:
+                                Text('Your transaction successful is done'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                        print(cardNumber.replaceAll(' ', ''));
+                        print('response: \n${response.toJson()}');
+                        print('isSuccessFul: ${response.isSuccessful}');
+                        print(jsonEncode(response.toJson()));
+                      } else {
+                        print('invalid!');
+                      }
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),
       ]),
     );
+  }
+
+  void onCreditCardModelChange(CreditCardModel? creditCardModel) {
+    setState(() {
+      cardNumber = creditCardModel!.cardNumber;
+      expiryDate = creditCardModel.expiryDate;
+      cardHolderName = creditCardModel.cardHolderName;
+      cvvCode = creditCardModel.cvvCode;
+      isCvvFocused = creditCardModel.isCvvFocused;
+    });
   }
 }

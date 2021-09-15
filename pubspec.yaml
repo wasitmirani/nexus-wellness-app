@@ -36,6 +36,7 @@ dependencies:
   video_player:
   flutter_authorize_net_client: ^0.1.0+2
   flutter_credit_card: ^2.0.0
+  awesome_card: ^1.1.5
 
 dev_dependencies:
   flutter_test:
