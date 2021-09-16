@@ -16,28 +16,6 @@ class CustomizePlan extends StatefulWidget {
 }
 
 class _CustomizePlanState extends State<CustomizePlan> {
-
-   bool loading=false;
-  updateUserPlane(id) async{
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
- var token= prefs.getString('token').toString();
-    setState(() {
-      loading = true;
-    });
-    var url = update_plane_user;
-  final response = await http.post(Uri.parse(url),
-      headers: {
-        HttpHeaders.authorizationHeader: 'Bearer '+token,
-      },
-      body: {
-        'plane_id':id.toString(),
-      },
-    );
-    // print(response.statusCod);
-    if(response.statusCode==201 ){
-        Navigator.pushNamed(context, '/new/feeds');
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +96,7 @@ class _CustomizePlanState extends State<CustomizePlan> {
                   child: Padding(
                     padding: const EdgeInsets.all(50.0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width/1,
+                      width: MediaQuery.of(context).size.width / 1,
                       height: 40,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -126,7 +104,7 @@ class _CustomizePlanState extends State<CustomizePlan> {
                           onPrimary: Colors.white, // foreground
                         ),
                         onPressed: () {
-                          updateUserPlane("2");
+                          // updateUserPlane("2");
                           Navigator.pushNamed(context, '/new/feeds');
                         },
                         child: Text('Claim Free Plan'),

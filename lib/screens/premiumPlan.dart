@@ -17,27 +17,29 @@ class PremiumPlan extends StatefulWidget {
 }
 
 class _PremiumPlanState extends State<PremiumPlan> {
-bool loading=false;
-  updateUserPlane(id) async{
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
- var token= prefs.getString('token').toString();
+  bool loading = false;
+  updateUserPlane(id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token').toString();
     setState(() {
       loading = true;
     });
     var url = update_plane_user;
-  final response = await http.post(Uri.parse(url),
+    final response = await http.post(
+      Uri.parse(url),
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer '+token,
+        HttpHeaders.authorizationHeader: 'Bearer ' + token,
       },
       body: {
-        'plane_id':id.toString(),
+        'plane_id': id.toString(),
       },
     );
     // print(response.statusCod);
-    if(response.statusCode==201 ){
-        Navigator.pushNamed(context, '/new/feeds');
+    if (response.statusCode == 201) {
+      Navigator.pushNamed(context, '/new/feeds');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -118,7 +120,7 @@ bool loading=false;
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width/1,
+                      width: MediaQuery.of(context).size.width / 1,
                       height: 40,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -126,9 +128,7 @@ bool loading=false;
                           onPrimary: Colors.white, // foreground
                         ),
                         onPressed: () {
-                     
-                          updateUserPlane(3);
-                          print("jh");
+                          Navigator.pushNamed(context, '/premium/payment');
                         },
                         child: Text('Claim Free Plan'),
                       ),

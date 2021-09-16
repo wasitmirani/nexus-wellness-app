@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_authorize_net_client/flutter_authorize_net_client.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -11,15 +10,15 @@ import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PremiumPlanPayment extends StatefulWidget {
-  const PremiumPlanPayment({Key? key}) : super(key: key);
+class CustomizePlanPayment extends StatefulWidget {
+  const CustomizePlanPayment({Key? key}) : super(key: key);
 
   @override
-  _PremiumPlanPaymentState createState() => _PremiumPlanPaymentState();
+  _CustomizePlanPaymentState createState() => _CustomizePlanPaymentState();
 }
 
-class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
-  String price = "200.00";
+class _CustomizePlanPaymentState extends State<CustomizePlanPayment> {
+  String price = "120.00";
   String currency = "USD";
   TextEditingController cardTextController = new TextEditingController();
   TextEditingController dateTextController = new TextEditingController();
@@ -71,14 +70,14 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(kblueColor),
+        backgroundColor: Color(kgreenColor),
         title: Center(
-            child: Text(" Premium Membership",
+            child: Text("Customize Membership",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800))),
         elevation: 0,
       ),
       body: new Stack(children: <Widget>[
-        planBgScreen("premiumplanbg.png"),
+        planBgScreen("customizeplanbg.png"),
         Column(
           children: [
             SizedBox(height: 20),
@@ -143,7 +142,7 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                     cvvCode: cvvCode,
                     cardHolderName: cardHolderName,
                     expiryDate: expiryDate,
-                    themeColor: Colors.blue,
+                    themeColor: Color(kgreenColor),
                     cardNumberDecoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Number',
@@ -172,7 +171,7 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        primary: const Color(kblueColor),
+                        primary: const Color(kgreenColor),
                       ),
                       child: Container(
                         margin: const EdgeInsets.all(5),
@@ -198,12 +197,12 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                           );
                           if (response.isSuccessful) {
                             final snackBar = SnackBar(
-                              content:
-                                  Text('Your transaction successful is done'),
+                              content: Text(
+                                  'Your transaction was successfully processed'),
                             );
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
-                             updateUserPlane(3);
+                            updateUserPlane(2);
                           }
                           print(cardNumber.replaceAll(' ', ''));
                           print('response: \n${response.toJson()}');
@@ -211,6 +210,11 @@ class _PremiumPlanPaymentState extends State<PremiumPlanPayment> {
                           print(jsonEncode(response.toJson()));
                         } else {
                           print('invalid!');
+                          final snackBar = SnackBar(
+                            content: Text(
+                                'Your transaction has been failed. Please try again'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
                       },
                     ),
