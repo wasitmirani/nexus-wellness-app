@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:nexuswellness/assets/apiUrls.dart';
 import 'package:nexuswellness/assets/constants.dart';
 import 'package:nexuswellness/widgets/eventCard.dart';
+import 'package:nexuswellness/widgets/mainDrawer.dart';
 import 'package:nexuswellness/widgets/mainwidgets.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Events extends StatefulWidget {
   Events({Key? key}) : super(key: key);
@@ -17,11 +19,22 @@ class Events extends StatefulWidget {
 class _EventsState extends State<Events> {
   List events = [];
   bool loading = false;
+  String name = "", email = "", id = "", plane = "", thumbnail = "";
 
   @override
   void initState() {
     super.initState();
     this.fetchEvents();
+  }
+
+  getUserInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    name = prefs.getString('name').toString();
+    id = prefs.getString('id').toString();
+    thumbnail = prefs.getString('thumbnail').toString();
+    email = prefs.getString('email').toString();
+    plane = prefs.getString('plane').toString();
   }
 
   fetchEvents() async {
@@ -34,6 +47,7 @@ class _EventsState extends State<Events> {
       var items = json.decode(response.body);
       if (items.length > 0) {
         setState(() {
+          getUserInfo();
           events = items['events'];
           loading = false;
         });
@@ -75,6 +89,10 @@ class _EventsState extends State<Events> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Events Listing"),
+      ),
+      drawer: mainDrawer(name, email, thumbnail, context),
       body: new Stack(children: <Widget>[
         appBackgroundScreen(),
         RefreshIndicator(

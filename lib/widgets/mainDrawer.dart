@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nexuswellness/assets/constants.dart';
 
-
-Widget mainDrawer(name,email,thumbanil,context) {
-
+Widget mainDrawer(name, email, thumbanil, context) {
   return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(35), bottomRight: Radius.circular(35)),
@@ -27,7 +25,7 @@ Widget mainDrawer(name,email,thumbanil,context) {
                       height: 5.0,
                     ),
                     Text(
-                      name  ,
+                      name,
                       style: TextStyle(
                         fontSize: 22.0,
                         fontWeight: FontWeight.w800,
@@ -64,16 +62,9 @@ Widget mainDrawer(name,email,thumbanil,context) {
                   title: Text('Account'),
                 ),
                 ListTile(
-                  leading: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.share,
-                      color: Colors.black,
-                    ),
-                  ),
-                  title: Text('Projects'),
-                ),
-                ListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/new/feeds');
+                  },
                   leading: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
@@ -81,9 +72,12 @@ Widget mainDrawer(name,email,thumbanil,context) {
                       color: Colors.black,
                     ),
                   ),
-                  title: Text('Stories'),
+                  title: Text('Nexus Findings'),
                 ),
                 ListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/events');
+                  },
                   leading: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
@@ -91,8 +85,9 @@ Widget mainDrawer(name,email,thumbanil,context) {
                       color: Colors.black,
                     ),
                   ),
-                  title: Text('Review'),
+                  title: Text('Events'),
                 ),
+
                 // ListTile(
                 //   leading: Padding(
                 //     padding: const EdgeInsets.all(8.0),

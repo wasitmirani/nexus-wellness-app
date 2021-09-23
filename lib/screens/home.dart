@@ -35,8 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: Center(
                 child: Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-                  style: TextStyle(fontSize: 14),
+                  "NEXUS Wellness Solutions provides Services in the areas of Health, Wellness, Education, Training, and Research Development.",
+                  style: TextStyle(fontSize: 13),
                   textAlign: TextAlign.justify,
                 ),
               ),

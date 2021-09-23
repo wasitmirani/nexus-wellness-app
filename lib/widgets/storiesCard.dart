@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-Widget storiesCard(title, description,thumbnail) {
+Widget storiesCard(title, description, thumbnail) {
   return Padding(
-    padding: EdgeInsets.only(top: 10,),
+    padding: EdgeInsets.only(
+      top: 10,
+    ),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -11,7 +13,7 @@ Widget storiesCard(title, description,thumbnail) {
             spacing: 15, // space between two icons
             children: <Widget>[
               Image.network(
-                thumbnail.length>0 ? thumbnail : "" ,
+                thumbnail.length > 0 ? thumbnail : "",
                 width: 80,
                 height: 80,
               ),
