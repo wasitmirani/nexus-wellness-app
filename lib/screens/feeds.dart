@@ -58,19 +58,21 @@ class _FeedsState extends State<Feeds> {
       },
     );
     if (response.statusCode == 200) {
-      var items = json.decode(response.body);
-      print(items['user'].length);
-      if (items['user'].toString().length > 0) {
-        setState(() {
-          print(items['user']['name'].toString());
-          name = items['user']['name'].toString();
-          email = items['user']['email'].toString();
-          prefs.setString('name', items['user']['name'].toString());
-          prefs.setString('id', items['user']['id'].toString());
-          prefs.setString('thumbnail', items['user']['thumbnail'].toString());
-          prefs.setString('email', items['user']['email'].toString());
-          prefs.setString('plane', items['user']['plane'].toString());
-        });
+      if (token != "") {
+        var items = json.decode(response.body);
+        print(items['user'].length);
+        if (items['user'].toString().length > 0) {
+          setState(() {
+            print(items['user']['name'].toString());
+            name = items['user']['name'].toString();
+            email = items['user']['email'].toString();
+            prefs.setString('name', items['user']['name'].toString());
+            prefs.setString('id', items['user']['id'].toString());
+            prefs.setString('thumbnail', items['user']['thumbnail'].toString());
+            prefs.setString('email', items['user']['email'].toString());
+            prefs.setString('plane', items['user']['plane'].toString());
+          });
+        }
       } else {
         // loading = false;
       }

@@ -71,7 +71,7 @@ class _PremiumPlanState extends State<PremiumPlan> {
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
                   child: Text(
-                    "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,",
+                    "Since the inception of covid-19 Nexus Wellness Solutions have provided free consultation services on health and wellness. This is an opportunity for healing and rejuvenating your spiritual well-being.",
                     textAlign: TextAlign.justify,
                   ),
                 ),

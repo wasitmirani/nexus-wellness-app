@@ -85,7 +85,7 @@ class _FreePlanState extends State<FreePlan> {
                 Padding(
                   padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
                   child: Text(
-                    "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form,",
+                    "",
                     textAlign: TextAlign.justify,
                   ),
                 ),
